@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.64",
+    "@aws-sdk/client-s3": "^3.926.0",
+    "@phosphor-icons/react": "^2.1.10",
     "@speechify/api": "^1.0.1",
     "@tanstack/react-virtual": "^3.13.12",
     "ai": "^5.0.89",
