@@ -20,6 +20,8 @@ interface UseAudioPlaybackProps {
   selectedPhraseIndex: number;
 }
 
+const PRELOAD_COUNT = 3;
+
 export function useAudioPlayback({
   sentences,
   selectedSentence,
@@ -30,6 +32,7 @@ export function useAudioPlayback({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const currentAudioUrlRef = useRef<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const preloadedRef = useRef<Set<number>>(new Set());
 
   const stopAudio = useCallback(() => {
     if (audioRef.current) {
@@ -149,6 +152,36 @@ export function useAudioPlayback({
     },
     [selectedSentence, selectedPhraseIndex, sentences]
   );
+
+  // Preload next sentences when selection changes
+  useEffect(() => {
+    if (selectedSentence === null) return;
+
+    const preloadSentences = async () => {
+      for (let i = 1; i <= PRELOAD_COUNT; i++) {
+        const nextIndex = selectedSentence + i;
+
+        // Stop if we've reached the end of sentences
+        if (nextIndex >= sentences.length) break;
+
+        // Skip if already preloaded
+        if (preloadedRef.current.has(nextIndex)) continue;
+
+        // Mark as preloaded before making the request
+        preloadedRef.current.add(nextIndex);
+
+        // Preload in the background (fire and forget)
+        const sentenceText = sentences[nextIndex].sentence;
+        generateSpeech(sentenceText).catch((error) => {
+          console.error(`Failed to preload sentence ${nextIndex}:`, error);
+          // Remove from preloaded set on failure so it can be retried
+          preloadedRef.current.delete(nextIndex);
+        });
+      }
+    };
+
+    preloadSentences();
+  }, [selectedSentence, sentences]);
 
   // Cleanup audio on unmount
   useEffect(() => {

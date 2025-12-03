@@ -60,6 +60,7 @@ export async function generateSpeech(text: string): Promise<{
       input: text,
       voiceId: voiceId,
       model: 'simba-multilingual',
+      language: 'fr-FR',
     });
 
     // Try to upload to S3

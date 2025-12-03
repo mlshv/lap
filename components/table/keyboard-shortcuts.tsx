@@ -5,6 +5,14 @@ import { MicrophoneIcon } from '@phosphor-icons/react';
 import { Virtualizer } from '@tanstack/react-virtual';
 import { Sentence } from '@/app/types';
 
+function Key({ children }: { children: React.ReactNode }) {
+  return (
+    <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
+      {children}
+    </kbd>
+  );
+}
+
 interface KeyboardShortcutsOverlayProps {
   isLoading: boolean;
   isPlaying: boolean;
@@ -17,7 +25,7 @@ export function KeyboardShortcutsOverlay({
   showTranslation,
 }: KeyboardShortcutsOverlayProps) {
   return (
-    <div className="fixed top-4 left-4 z-50 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg p-3 space-y-2">
+    <div className="fixed top-4 left-4 z-50 border border-f1/10 shadow-lg p-3 space-y-2">
       {(isLoading || isPlaying) && (
         <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-700">
           {isLoading ? (
@@ -36,39 +44,23 @@ export function KeyboardShortcutsOverlay({
         </div>
         <div className="text-xs text-gray-600 dark:text-gray-400 space-y-0.5">
           <div className="flex items-center gap-2">
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              h
-            </kbd>
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              ←
-            </kbd>
+            <Key>h</Key>
+            <Key>←</Key>
             <span>Left phrase</span>
           </div>
           <div className="flex items-center gap-2">
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              j
-            </kbd>
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              ↓
-            </kbd>
+            <Key>j</Key>
+            <Key>↓</Key>
             <span>Next sentence</span>
           </div>
           <div className="flex items-center gap-2">
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              k
-            </kbd>
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              ↑
-            </kbd>
+            <Key>k</Key>
+            <Key>↑</Key>
             <span>Previous sentence</span>
           </div>
           <div className="flex items-center gap-2">
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              l
-            </kbd>
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              →
-            </kbd>
+            <Key>l</Key>
+            <Key>→</Key>
             <span>Right phrase</span>
           </div>
         </div>
@@ -79,21 +71,15 @@ export function KeyboardShortcutsOverlay({
         </div>
         <div className="text-xs text-gray-600 dark:text-gray-400 space-y-0.5">
           <div className="flex items-center gap-2">
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              a
-            </kbd>
+            <Key>a</Key>
             <span>Play sentence</span>
           </div>
           <div className="flex items-center gap-2">
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              f
-            </kbd>
+            <Key>f</Key>
             <span>Play phrase</span>
           </div>
           <div className="flex items-center gap-2">
-            <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-xs font-mono">
-              v
-            </kbd>
+            <Key>v</Key>
             <span>Toggle Translation {showTranslation ? '(visible)' : '(hidden)'}</span>
           </div>
         </div>
